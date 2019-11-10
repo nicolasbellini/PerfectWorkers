@@ -11,7 +11,7 @@ public class Main {
 		
 		int bufferlength = 210;
 		//Maximo 7
-		int cantPerfectos = 5;
+		int cantPerfectos = 6;
 		int cantThreads = 3;
 		
 		ArrayList<Long> perfectos = new ArrayList<Long>();
@@ -27,16 +27,19 @@ public class Main {
 		ArrayList<Long> datos = new ArrayList<Long>();
 		
 		for (int i = 1; i <= cantThreads; i++) {
-			for (int j = 0; j < cantPerfectos; j++) {
+			for (int j = 0; j <= cantPerfectos; j++) {
 				ThreadPool tp = 
 						new ThreadPool(perfectos, i, j, bufferlength);
 				long startTime = System.nanoTime();
+				long startTime2 = System.currentTimeMillis();
 //				System.out.println("Se corren los threads..");
 				datos.add((long) i);
 				datos.add((long) j);
 				tp.startThreads();
 				datos.add((long) tp.callTime(startTime));
+				System.out.println("********FIN FOR PERFECTOS*******");
 			}
+		System.out.println("////////////FINALIZADO////////////");
 		}
 		try {
 			rf.crearReporte(datos);
