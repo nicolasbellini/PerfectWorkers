@@ -1,8 +1,10 @@
 package TP;
 
+import java.math.BigInteger;
+
 public class Buffer extends Thread{
 	
-	long[] buffer;
+	BigInteger[] buffer;
 	int size;
 	//Para el pull
 	int currentPosition = 0;
@@ -11,11 +13,11 @@ public class Buffer extends Thread{
 	int nextAdd = 0;
 	
 	public Buffer(int n) {
-		this.buffer = new long[n];
+		this.buffer = new BigInteger[n];
 		this.size = n;
 	}
 
-	public synchronized void push(long n) {
+	public synchronized void push(BigInteger n) {
 		while(bufferLleno()) {
 			try {
 				wait();
@@ -29,7 +31,7 @@ public class Buffer extends Thread{
 		notifyAll();
 	}
 
-	public synchronized long get(){
+	public synchronized BigInteger get(){
 		while(bufferVacio()) {
 			try {
 				wait();
@@ -37,7 +39,7 @@ public class Buffer extends Thread{
 				e.printStackTrace();
 			}
 		}
-		long a = buffer[currentPosition];
+		BigInteger a = buffer[currentPosition];
 		currentPosition++;
 		notifyAll();
 		return a;

@@ -1,6 +1,7 @@
 package TP;
 
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import com.itextpdf.text.DocumentException;
@@ -9,47 +10,39 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		int bufferlength = 210;
-		//Maximo 7
-		int cantPerfectos = 6;
-		int cantThreads = 3;
-		
-		ArrayList<Long> perfectos = new ArrayList<Long>();
-		perfectos.add(6L);
-		perfectos.add(28L);
-		perfectos.add(496L);
-		perfectos.add(8128L);
-		perfectos.add(33550336L);
-		perfectos.add(8589869056L);
-		perfectos.add(137438691328L);
-		
 		ReportFactory rf = new ReportFactory();
+		
+		int bufferSize = 300;
+		int cantNumerosEnBuffer = 250;
+		int cantWorkers = 3;
+		
+		ArrayList<BigInteger> numeros = new ArrayList<BigInteger>();
+		for (int i = 1; i <= cantNumerosEnBuffer; i++) {
+			numeros.add(BigInteger.valueOf(i));
+		}
+		numeros.add(BigInteger.valueOf(6));
+		numeros.add(BigInteger.valueOf(28L));
+		numeros.add(BigInteger.valueOf(496L));
+//		numeros.add(BigInteger.valueOf(8128L));
+//		numeros.add(BigInteger.valueOf(33550336L));
+//		numeros.add(BigInteger.valueOf(8589869056L));
+//		numeros.add(BigInteger.valueOf(137438691328L));
+		
 		ArrayList<Long> datos = new ArrayList<Long>();
 		
-		for (int i = 1; i <= cantThreads; i++) {
-			for (int j = 0; j <= cantPerfectos; j++) {
-				ThreadPool tp = 
-						new ThreadPool(perfectos, i, j, bufferlength);
-				long startTime = System.nanoTime();
-				long startTime2 = System.currentTimeMillis();
-//				System.out.println("Se corren los threads..");
-				datos.add((long) i);
-				datos.add((long) j);
-				tp.startThreads();
-				datos.add((long) tp.callTime(startTime));
-				System.out.println("********FIN FOR PERFECTOS*******");
-			}
-		System.out.println("////////////FINALIZADO////////////");
-		}
-		try {
-			rf.crearReporte(datos);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
+		ThreadPool tp1 = new ThreadPool(numeros, cantWorkers, bufferSize);
+		
+		long startTime = System.nanoTime();
+		tp1.startThreads();
+		tp1.callBarrier();
+
+		long endTime = System.nanoTime();
+		long timeElapsed = endTime - startTime;
+		System.out.println("Tiempo de ejecucion en nanosegundos: " + timeElapsed);
+
+//		rf.generarReporte();
 		
 	}
 	
-
 }
+

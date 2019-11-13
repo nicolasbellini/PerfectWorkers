@@ -31,5 +31,30 @@ public class ReportFactory {
         document.close();
         System.out.println("Se creo reporte");
     }
+		
+//		public void generarReporte() {
+//			for (int i = 1; i <= cantThreads; i++) {
+//				for (int j = 0; j <= cantPerfectos; j++) {
+//					ThreadPool tp = 
+//							new ThreadPool(perfectos, i, j, bufferlength);
+//					long startTime = System.nanoTime();
+//					long startTime2 = System.currentTimeMillis();
+//					System.out.println("Se corren los threads..");
+//					datos.add((long) i);
+//					datos.add((long) j);
+//					tp.startThreads();
+//					datos.add((long) tp.callTime(startTime));
+//					System.out.println("********FIN FOR PERFECTOS*******");
+//				}
+//			System.out.println("////////////FINALIZADO////////////");
+//			}
+//			try {
+//				rf.crearReporte(datos);
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			} catch (DocumentException e) {
+//				e.printStackTrace();
+//			}
+//		}
     
 }

@@ -25,7 +25,7 @@ public class Barrier {
 		notifyAll();
 	}
 	
-	public synchronized long callTime(long startTime) {
+	public synchronized void callBarrier() {
 		System.out.println("Esperando threads para calcular el tiempo..");
 		while(!terminaronThreads) {
 			try {
@@ -34,10 +34,6 @@ public class Barrier {
 				e.printStackTrace();
 			}
 		}
-		long endTime = System.nanoTime();
-		long timeElapsed = endTime - startTime;
-//		System.out.println("Tiempo de ejecucion en nanosegundos: " + timeElapsed);
-		return timeElapsed;
 	}
 
 }
