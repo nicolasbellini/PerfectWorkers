@@ -26,7 +26,7 @@ public class Barrier {
 	}
 	
 	public synchronized void callBarrier() {
-		System.out.println("Esperando threads para calcular el tiempo..");
+//		System.out.println("Esperando threads para calcular el tiempo..");
 		while(!terminaronThreads) {
 			try {
 				wait();

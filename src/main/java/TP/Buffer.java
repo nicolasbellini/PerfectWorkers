@@ -27,7 +27,7 @@ public class Buffer extends Thread{
 		}
 		buffer[nextAdd] = n;
 		lastAdded = nextAdd;
-		nextAdd++;
+		nextAdd = (nextAdd+1) % size;
 		notifyAll();
 	}
 
@@ -40,7 +40,7 @@ public class Buffer extends Thread{
 			}
 		}
 		BigInteger a = buffer[currentPosition];
-		currentPosition++;
+		currentPosition = ((currentPosition + 1) % size);
 		notifyAll();
 		return a;
 	}
@@ -50,7 +50,7 @@ public class Buffer extends Thread{
 	}
 
 	private boolean bufferLleno() {
-		return (nextAdd+1 % size) == 0;
+		return ((nextAdd+1) % size) == 0;
 	}
 	
 	

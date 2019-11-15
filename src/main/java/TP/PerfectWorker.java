@@ -20,7 +20,7 @@ public class PerfectWorker extends Thread {
 		while(!negativo) {
 			BigInteger a = buffer.get();
 			if(a.compareTo(BigInteger.valueOf(0)) > 0){
-			verificarNumero(a.longValue());
+				verificarNumero(a);
 			}
 			else {
 				negativo = true;
@@ -30,16 +30,19 @@ public class PerfectWorker extends Thread {
 		barrier.frenarThreads();
 	}
 	
-    public synchronized void verificarNumero(long a) {
-    long sum = 0;
-    for(long i = 1; i < a; i++){
-        if(a % i == 0){
-            sum = sum + i;
+    public synchronized void verificarNumero(BigInteger a) {
+    BigInteger sum = BigInteger.valueOf(0);
+    for(BigInteger i = BigInteger.valueOf(1); i.compareTo(a) < 0; i = i.add(BigInteger.valueOf(1))){
+        if(a.divideAndRemainder(i)[1]  == BigInteger.valueOf(0)){
+            sum = sum.add(i);
         	}
     	}
     if(sum == a){
         System.out.println(a + " es un numero perfecto.");
-        res.addResultado(BigInteger.valueOf(a));
+        res.addResultado(a);
     	}
+    else {
+    	System.out.println(a);
+    }
     }
 }
